@@ -1,19 +1,3 @@
-Skip to content
-This repository  
-Search
-Pull requests
-Issues
-Gist
- @maciejKolanski
- Unwatch 4
-  Star 0
-  Fork 0 maciejKolanski/AIiR_CZ1115_FaktoryzacjaLiczby
- Code  Issues 0  Pull requests 0  Wiki  Pulse  Graphs  Settings
-Branch: master Find file Copy pathAIiR_CZ1115_FaktoryzacjaLiczby/README.md
-fc792ab  2 days ago
-@BartoszJanusz BartoszJanusz Update README.md
-4 contributors @maciejKolanski @BartoszJanusz @piotrDowgiallo @DurajR
-RawBlameHistory     118 lines (74 sloc)  8.18 KB
 Faktoryzacja dużej liczby z użyciem obliczeń rozproszonych (AIiR_CZ1115)
 1. Temat projektu
 
@@ -112,5 +96,3 @@ NFS@Home GGNFS pGNFS factor by gnfs CADO-NFS msieve, which contains excellent fi
 ElvenSmooth - projekt (... jeszcze nie doczytalem o nim dokladnie) http://home.earthlink.net/~elevensmooth/
 
 Factorizations of Cyclotomic Numbers http://www.asahi-net.or.jp/~KC2H-MSM/cn/
-Status API Training Shop Blog About Pricing
-© 2016 GitHub, Inc. Terms Privacy Security Contact Help
