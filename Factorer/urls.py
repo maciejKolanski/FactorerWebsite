@@ -16,5 +16,6 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
+    url(r'^FactorerMain/', include('FactorerMain.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ]
