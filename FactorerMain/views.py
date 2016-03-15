@@ -1,7 +1,10 @@
+from django.views.generic import View
 from django.shortcuts import render
 
 # Create your views here.
-from django.http import HttpResponse
 
-def index(request):
-    return HttpResponse("Hello world!")
+class IndexView(View):
+    template_name = 'FactorerMain/index.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
