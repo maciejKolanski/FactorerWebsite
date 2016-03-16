@@ -1,7 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <ul>
-        To jest strona FactorerMain, która rozszerze base.html!
-    </ul>
+    <p>Tasks:</p>
+    {% if tasks %}
+        <table cellpadding="10">
+        <tr>
+            <td>Number</td>
+            <td>User</td>
+            <td>Algorithm</td>
+            <td>Date</td>
+        </tr>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.number_to_factor }}</td>
+                <td>{{ task.user }}</td>
+                <td>{{ task.algorithm }}</td>
+                <td>{{ task.job_date }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <p>No tasks to show.</p>
+    {% endif %}
 {% endblock%}

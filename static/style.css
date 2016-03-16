@@ -1,5 +1,10 @@
+html {
+}
+
 body {
 	min-width: 630px;
+	max-width: 1000px;
+	margin: 0 auto;
 }
 
 #container {
@@ -49,23 +54,8 @@ body {
 	margin-bottom: -1000em;
 }
 
-/* Fix for the footer */
-* html body {
-	overflow: hidden;
-}
-
-* html #footer-wrapper {
-	float: left;
-	position: relative;
-	width: 100%;
-	padding-bottom: 10010px;
-	margin-bottom: -10000px;
-	background: #fff;
-}
-
 /* Aesthetics */
 body {
-	margin: 0;
 	padding: 0;
 	font-family:Sans-serif;
 	line-height: 1.5em;
@@ -90,6 +80,10 @@ nav ul a {
 	font-size: large;
 	padding: 0.3em;
 	background: #BCCE98;
+}
+
+.tab{
+	margin-left: 40px;
 }
 
 #left {
