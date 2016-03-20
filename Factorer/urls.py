@@ -19,6 +19,8 @@ from FactorerMain import views
 
 urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
+    url(r'^about$', views.AboutView.as_view(), name='about'),
+    url(r'^creators$', views.CreatorsView.as_view(), name='creators'),
     url(r'^login/$', 'django.contrib.auth.views.login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout'),
     url(r'^admin/', include(admin.site.urls)),

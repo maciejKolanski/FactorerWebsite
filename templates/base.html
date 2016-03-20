@@ -15,7 +15,7 @@
     <div id="header">
         <div class="wrap clearfix">
             <div id="header-logo" class="fl">
-                <h1>Faktoryzacja <span>dużych liczb</span></h1>
+                <a href="{% url 'index' %}"><h1><span>Faktoryzacja dużych liczb</span></h1></a>
             </div><!-- // end #header-logo -->
             <div id="nav" class="fr">
                 {% block menu %}
@@ -27,9 +27,9 @@
                       <a href="{% url 'django.contrib.auth.views.logout' %}">Wyloguj</a>
                     {% endif %}
                     </li>
-                    <li class="active"><a href="index.html">Strona główna</a></li>
-                    <li><a href="about.html">Opis problemu</a></li>
-                    <li><a href="portfolio.html">Autorzy</a></li>
+                    <li><a href="{% url 'index' %}">Strona główna</a></li>
+                    <li><a href="{% url 'about' %}">Opis projektu</a></li>
+                    <li><a href="{% url 'creators' %}">Autorzy</a></li>
                 </ul>
                 {% endblock %}
             </div><!-- // end #nav -->
@@ -40,7 +40,6 @@
         <div class="wrap">
             {% block description %}
             <h1>Projekt podziału dużych liczb.</h1>
-            <p>Aplikacja rozproszona bla bla bla . . . . . . .(krótki opis)</p>
             {% endblock %}
         </div><!-- // end .wrap -->
     </div><!-- // end #blurb -->
@@ -72,19 +71,14 @@
         <div class="content clearfix">
             <div class="col-2 fl">
                 {%  block leftcontent %}
-                <h2>Coś</h2>
-                <p>dużo fajnego tekstu_dużo fajnego tekstu_dużo fajnego tekstu_
-                dużo fajnego tekstu_dużo fajnego tekstu_dużo fajnego tekstu_
-                dużo fajnego tekstu_dużo fajnego tekstu_dużo fajnego tekstu_</p>
+                <h2>Tytul</h2>
+                <p>Tresc</p>
                 {%  endblock %}
             </div><!-- // end .col-2 .fl -->
             <div class="col-2 fr">
                 {%  block rightcontent %}
-                <h2>coś2</h2>
-                <p>też_dużo_fajnego_tekstuteż_dużo_fajnego_tekstuteż_dużo_fajnego_tekstuteż_dużo_fajnego_tekstu
-                też_dużo_fajnego_tekstuteż_dużo_fajnego_tekstuteż_dużo_fajnego_tekstu
-                też_dużo_fajnego_tekstuteż_dużo_fajnego_tekstuteż_dużo_fajnego_tekstu
-                też_dużo_fajnego_tekstuteż_dużo_fajnego_tekstuteż_dużo_fajnego_tekstu</p>
+                <h2>Tytul</h2>
+                <p>Tresc</p>
                 {%  endblock %}
             </div><!-- // end .col-2 .fr -->
         </div><!-- // end .content -->
@@ -96,14 +90,14 @@
             <div class="align-right">
                 {% block footer %}
                 <div align="right">
-                <h3>Linki</h3>
+                <!--<h3>Linki</h3>
                 <ul>
                     <li><a href="#">www.link1.com</a></li>
                     <li><a href="#">www.link2.com</a></li>
                     <li><a href="#">www.link3.com</a></li>
                     <li><a href="#">www.link4.com</a></li>
                     <li><a href="#">www.link5.com</a></li>
-                </ul>
+                </ul>-->
                 </div>
                 {% endblock %}
             </div>

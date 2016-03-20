@@ -12,4 +12,19 @@ class IndexView(LoggedInMixin, View):
 
     def get(self, request, *args, **kwargs):
         tasks = Task.objects.order_by('number_to_factor')
-        return render(request, self.template_name, {'tasks': tasks})
+        users = UserData.objects.order_by('login')
+        return render(request, self.template_name, {'tasks': tasks, 'users': users})
+
+
+class AboutView(LoggedInMixin, View):
+    template_name = 'FactorerMain/about.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {})
+
+
+class CreatorsView(LoggedInMixin, View):
+    template_name = 'FactorerMain/creators.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {})

@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{%  block description %}
+    <h1>Logowanie</h1>
+{% endblock %}
+
 {% block gallery %}
     {% if form.errors %}
         <p>Your username and password didn't match. Please try again.</p>
@@ -21,6 +25,7 @@
     <input type="submit" value="login" />
     <input type="hidden" name="next" value="{{ next }}" />
     </form>
+    </br>
 {%  endblock %}
 
 

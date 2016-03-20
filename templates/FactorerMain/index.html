@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block leftcontent %}
-    <p>Tasks:</p>
+    <h6>Zadania:</h6>
     {% if tasks %}
         <table cellpadding="10">
         <tr>
@@ -16,6 +16,26 @@
                 <td>{{ task.user }}</td>
                 <td>{{ task.algorithm }}</td>
                 <td>{{ task.job_date }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <p>No tasks to show.</p>
+    {% endif %}
+{% endblock%}
+
+{% block rightcontent %}
+    <h6>Użytkownicy:</h6>
+    {% if users %}
+        <table cellpadding="10">
+        <tr>
+            <td>Login</td>
+            <td>Mail</td>
+        </tr>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.login }}</td>
+                <td>{{ user.mail }}</td>
             </tr>
         {% endfor %}
         </table>
