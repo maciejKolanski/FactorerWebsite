@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{%  block description %}
+    <h1>Rejestracja</h1>
+{% endblock %}
+
+{% block gallery %}
+
+    <form method="post" action="">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+    <input type="submit" value="Create the account" />
+
+    </form>
+    </br>
+{%  endblock %}
+
+
+{% block rightcontent %}
+{% endblock %}
+{% block leftcontent %}
+{%  endblock %}

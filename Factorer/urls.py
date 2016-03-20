@@ -23,5 +23,7 @@ urlpatterns = [
     url(r'^creators$', views.CreatorsView.as_view(), name='creators'),
     url(r'^login/$', 'django.contrib.auth.views.login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout'),
+    url(r'^register/$', views.register, name='register'),
+    url(r'^success_register$', views.SuccessRegisterView.as_view(), name='success_register'),
     url(r'^admin/', include(admin.site.urls)),
 ]
