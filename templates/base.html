@@ -5,7 +5,7 @@
     <meta name="description" content="Project Description" />
     <meta name="keywords" content="Project Keywords" />
     <title>Faktoryzacja Liczb</title>
-    <link href="static/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
     <!--[if IE]><link href="static/css/style-ie.css" rel="stylesheet" type="text/css" /><![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 </head>
@@ -18,24 +18,36 @@
                 <h1>Faktoryzacja <span>dużych liczb</span></h1>
             </div><!-- // end #header-logo -->
             <div id="nav" class="fr">
+                {% block menu %}
                 <ul>
+                    <li>
+                    {% if user.is_anonymous %}
+                      <a href="{% url 'django.contrib.auth.views.login' %}">Zaloguj</a>
+                      {% else %}
+                      <a href="{% url 'django.contrib.auth.views.logout' %}">Wyloguj</a>
+                    {% endif %}
+                    </li>
                     <li class="active"><a href="index.html">Strona główna</a></li>
                     <li><a href="about.html">Opis problemu</a></li>
                     <li><a href="portfolio.html">Autorzy</a></li>
                 </ul>
+                {% endblock %}
             </div><!-- // end #nav -->
         </div><!-- // end .wrap -->
     </div><!-- // end #header -->
 
     <div id="blurb">
         <div class="wrap">
+            {% block description %}
             <h1>Projekt podziału dużych liczb.</h1>
             <p>Aplikacja rozproszona bla bla bla . . . . . . .(krótki opis)</p>
+            {% endblock %}
         </div><!-- // end .wrap -->
     </div><!-- // end #blurb -->
 
     <div id="portfolio-samples">
         <div class="wrap clearfix">
+            {% block gallery %}
             <div class="portfolio-item fl col-1">
                 <a href="alg1.html"><img src="static/images/al1.jpg" alt="thumb" /></a>
                 <div class="info">Algorytm 1</div>
@@ -52,23 +64,28 @@
                 <a href="alg4"><img src="static/images/al4.jpg" alt="thumb" /></a>
                 <div class="info">Algorytm 4</div>
             </div><!-- // end .portfolio-item -->
+            {% endblock %}
         </div><!-- // end .wrap -->
     </div><!-- // end #portfolio-samples -->
 
     <div class="wrap">
         <div class="content clearfix">
             <div class="col-2 fl">
+                {%  block leftcontent %}
                 <h2>Coś</h2>
                 <p>dużo fajnego tekstu_dużo fajnego tekstu_dużo fajnego tekstu_
                 dużo fajnego tekstu_dużo fajnego tekstu_dużo fajnego tekstu_
                 dużo fajnego tekstu_dużo fajnego tekstu_dużo fajnego tekstu_</p>
+                {%  endblock %}
             </div><!-- // end .col-2 .fl -->
             <div class="col-2 fr">
+                {%  block rightcontent %}
                 <h2>coś2</h2>
                 <p>też_dużo_fajnego_tekstuteż_dużo_fajnego_tekstuteż_dużo_fajnego_tekstuteż_dużo_fajnego_tekstu
                 też_dużo_fajnego_tekstuteż_dużo_fajnego_tekstuteż_dużo_fajnego_tekstu
                 też_dużo_fajnego_tekstuteż_dużo_fajnego_tekstuteż_dużo_fajnego_tekstu
                 też_dużo_fajnego_tekstuteż_dużo_fajnego_tekstuteż_dużo_fajnego_tekstu</p>
+                {%  endblock %}
             </div><!-- // end .col-2 .fr -->
         </div><!-- // end .content -->
     </div><!-- // end .wrap -->
@@ -77,8 +94,9 @@
     <div id="footer">
         <div class="wrap clearfix">
             <div class="align-right">
+                {% block footer %}
                 <div align="right">
-                <h3>Linki&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+                <h3>Linki</h3>
                 <ul>
                     <li><a href="#">www.link1.com</a></li>
                     <li><a href="#">www.link2.com</a></li>
@@ -87,6 +105,7 @@
                     <li><a href="#">www.link5.com</a></li>
                 </ul>
                 </div>
+                {% endblock %}
             </div>
         </div><!-- // end .wrap -->
     </P>

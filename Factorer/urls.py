@@ -15,8 +15,11 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from FactorerMain import views
+
 urlpatterns = [
-    url(r'^', include('FactorerMain.urls')),
-    url(r'^FactorerMain/', include('FactorerMain.urls')),
+    url(r'^$', views.IndexView.as_view(), name='index'),
+    url(r'^login/$', 'django.contrib.auth.views.login'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout'),
     url(r'^admin/', include(admin.site.urls)),
 ]
