@@ -50,7 +50,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'Komunikacja_Klient_Serwer.urls'
+ROOT_URLCONF = 'Komunikacja_Klient_Serwer.Klient'
 
 TEMPLATES = [
     {
