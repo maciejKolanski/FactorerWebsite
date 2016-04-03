@@ -1,13 +1,11 @@
 from django.views.generic import View
-from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, logout,  login
-from django.http import HttpResponseRedirect
-from django import forms
+from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
 from .mixin import LoggedInMixin
-import operator
+from .forms import *
 
 # Create your views here.
 
@@ -19,6 +17,23 @@ class IndexView(LoggedInMixin, View):
         tasks = Task.objects.order_by('number_to_factor')
         users = User.objects.order_by('username')
         return render(request, self.template_name, {'tasks': tasks, 'users': users})
+
+
+class BruteforceView(LoggedInMixin, View):
+    template_name = 'FactorerMain/algorithms/bruteforce.html'
+
+    def get(self, request, *args, **kwargs):
+        algorithm_form = AlgorithmInputForm()
+        return render(request, self.template_name, {'algorithm_form': algorithm_form})
+
+    def post(self, request, *args, **kwargs):
+        algorithm_form = AlgorithmInputForm(request.POST)
+        if algorithm_form.is_valid():
+            number = algorithm_form.cleaned_data['number']
+            html = "%s was send to database" % number
+            #TODO
+            return HttpResponse(html)
+        return HttpResponse("Failed to get brute force number")
 
 
 class AboutView(LoggedInMixin, View):
@@ -34,6 +49,7 @@ class CreatorsView(LoggedInMixin, View):
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name, {})
 
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -47,6 +63,7 @@ def register(request):
     return render(request, "registration/register.html", {
         'form': form,
     })
+
 
 class SuccessRegisterView(LoggedInMixin, View):
     template_name = 'FactorerMain/success_register.html'

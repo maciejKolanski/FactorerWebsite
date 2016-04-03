@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{%  block description %}
+    <h1>Brute force - przegląd zupełny</h1>
+{% endblock %}
+
+{% block gallery %}
+    <div clas="info">
+    <h1>Opis</h1>
+    <p>Algorytm przeglądu zupełnego polega na dzieleniu zadanej liczby N przez kolejne liczby naturalne od 2 do
+    &radic;<span style="text-decoration: overline">N</span>.</p>
+    <form method="post" action="{% url 'bruteforce' %}">
+        {% csrf_token %}
+        {{ algorithm_form }}
+        <input type="submit" value="Submit" />
+    </form>
+    </div>
+{% endblock %}
