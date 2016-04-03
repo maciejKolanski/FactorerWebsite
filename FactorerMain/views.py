@@ -11,6 +11,7 @@ import operator
 
 # Create your views here.
 
+
 class IndexView(LoggedInMixin, View):
     template_name = 'FactorerMain/index.html'
 
