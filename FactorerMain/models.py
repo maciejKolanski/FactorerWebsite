@@ -20,6 +20,7 @@ class Algorithm(models.Model):
 
 class Task(models.Model):
     number_to_factor = models.BigIntegerField()
+    thread = models.IntegerField()
     job_date = models.DateField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     algorithm = models.ForeignKey(Algorithm, on_delete=models.CASCADE)
@@ -31,3 +32,6 @@ class Element(models.Model):
     first_factor = models.BigIntegerField()
     second_factor = models.BigIntegerField()
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.task.number_to_factor)

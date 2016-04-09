@@ -19,6 +19,7 @@ from FactorerMain import views
 
 urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
+    url(r'^userview/?$', views.UserView.as_view(), name='userview'),
     url(r'^about/?$', views.AboutView.as_view(), name='about'),
     url(r'^creators/?$', views.CreatorsView.as_view(), name='creators'),
     url(r'^bruteforce/?$', views.BruteforceView.as_view(), name='bruteforce'),
@@ -26,5 +27,5 @@ urlpatterns = [
     url(r'^logout/?$', 'django.contrib.auth.views.logout'),
     url(r'^register/?$', views.register, name='register'),
     url(r'^success_register/?$', views.SuccessRegisterView.as_view(), name='success_register'),
-    url(r'^admin/?$', include(admin.site.urls)),
+    url(r'^admin/?', include(admin.site.urls)),
 ]
