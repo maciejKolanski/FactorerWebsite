@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, logout,  login
 from django.http import HttpResponseRedirect, HttpResponse
+from itertools import chain
+from operator import attrgetter
 from .models import *
 from .mixin import LoggedInMixin
 from .forms import *
@@ -17,6 +19,15 @@ class IndexView(LoggedInMixin, View):
         tasks = Task.objects.order_by('number_to_factor')
         users = User.objects.order_by('username')
         return render(request, self.template_name, {'tasks': tasks, 'users': users})
+
+class UserView(LoggedInMixin, View):
+    template_name = 'FactorerMain/userview.html'
+
+    def get(self, request, *args, **kwargs):        
+        tasks = Task.objects.filter(user=request.user.id)
+        elements = Element.objects.filter(task__user=request.user.id)
+
+        return render(request, self.template_name, {'tasks': tasks, 'elements': elements})
 
 
 class BruteforceView(LoggedInMixin, View):

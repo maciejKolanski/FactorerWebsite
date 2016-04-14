@@ -13,7 +13,9 @@ blockquote:before,blockquote:after,q:before,q:after { content: ''; content: none
 img { vertical-align: bottom; }
 ins { text-decoration: none; }
 del { text-decoration: line-through; }
-table { border-collapse: collapse; border-spacing: 0; }
+table { float: left; border-collapse: collapse; border-spacing: 0; }
+table {width: 100%; margin-bottom: 15px;}
+td {border: 1.5px #aaa solid; padding: 2px;}
 
 a {text-decoration: none}
 

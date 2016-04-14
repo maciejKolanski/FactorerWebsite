@@ -20,6 +20,10 @@
             <div id="nav" class="fr">
                 {% block menu %}
                 <ul>
+                    {% if user.is_superuser %}
+                         <li><a href="{% url 'admin:index' %}">Panel administracyjny</a></li>
+                    {% endif %}
+                    <li>
                     {% if user.is_anonymous %}
                          <li><a href="{% url 'register' %}">Zarejestruj</a></li>
                     {% endif %}
@@ -31,6 +35,9 @@
                     {% endif %}
                     </li>
                     <li><a href="{% url 'index' %}">Strona główna</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'userview' %}">Zadania użytkownika</a></li>
+                    {% endif %}
                     <li><a href="{% url 'about' %}">Opis projektu</a></li>
                     <li><a href="{% url 'creators' %}">Autorzy</a></li>
                 </ul>

@@ -90,6 +90,17 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'factorDB',
+#         'USER': 'projekt',
+#         'PASSWORD':'projekt',
+#         'HOST':'156.17.235.48',
+#         'PORT':'3306',
+#     }
+# }
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
