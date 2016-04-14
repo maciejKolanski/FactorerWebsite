@@ -29,6 +29,7 @@
             <td>Threads</td>
             <td>Algorithm</td>
             <td>Date</td>
+            <td>State</td>
         </tr>
         {% for task in tasks %}
             <tr>
@@ -37,6 +38,7 @@
                 <td>{{ task.thread }}</td>
                 <td>{{ task.algorithm }}</td>
                 <td>{{ task.job_date }}</td>
+                <td>{{ task.state }}</td>
             </tr>
         {% endfor %}
         </table>

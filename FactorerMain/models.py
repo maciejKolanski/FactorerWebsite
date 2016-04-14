@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -10,6 +11,7 @@ class UserData(models.Model):
 
     def __str__(self):
         return self.login
+
 
 class Algorithm(models.Model):
     name = models.CharField(max_length=30)
@@ -30,8 +32,8 @@ class Task(models.Model):
     )
 
     number_to_factor = models.BigIntegerField()
-    thread = models.IntegerField()
-    job_date = models.DateField()
+    thread = models.IntegerField(default=0)
+    job_date = models.DateField(default=timezone.now)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     algorithm = models.ForeignKey(Algorithm, on_delete=models.CASCADE)
     state = models.IntegerField(choices=STATUS_CHOICES, default=UNDONE_STATUS)

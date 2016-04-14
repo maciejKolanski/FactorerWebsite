@@ -1,10 +1,8 @@
 from django.views.generic import View
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, logout,  login
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
-from itertools import chain
-from operator import attrgetter
 from .models import *
 from .mixin import LoggedInMixin
 from .forms import *
@@ -15,10 +13,15 @@ from .forms import *
 class IndexView(LoggedInMixin, View):
     template_name = 'FactorerMain/index.html'
 
-    def get(self, request, *args, **kwargs):
-        tasks = Task.objects.order_by('number_to_factor')
+    @staticmethod
+    def data_to_render():
+        tasks = Task.objects.order_by('state')
         users = User.objects.order_by('username')
-        return render(request, self.template_name, {'tasks': tasks, 'users': users})
+        return {'tasks': tasks, 'users': users}
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, IndexView.data_to_render())
+
 
 class UserView(LoggedInMixin, View):
     template_name = 'FactorerMain/userview.html'
@@ -41,9 +44,10 @@ class BruteforceView(LoggedInMixin, View):
         algorithm_form = AlgorithmInputForm(request.POST)
         if algorithm_form.is_valid():
             number = algorithm_form.cleaned_data['number']
-            html = "%s was send to database" % number
-            #TODO
-            return HttpResponse(html)
+            algorithm = Algorithm.objects.get(name="Brute Force")#TODO something with hardoced name
+            task = Task(number_to_factor=number, user=request.user, algorithm=algorithm)
+            task.save()
+            return render(request, IndexView.template_name, IndexView.data_to_render())
         return HttpResponse("Failed to get brute force number")
 
 
