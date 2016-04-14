@@ -18,14 +18,26 @@ class Algorithm(models.Model):
     def __str__(self):
         return self.name
 
+
 class Task(models.Model):
+    UNDONE_STATUS = 0
+    WORKING_STATUS = 1
+    DONE_STATUS = 2
+    STATUS_CHOICES = (
+        (UNDONE_STATUS, "Undone"),
+        (WORKING_STATUS, "Working"),
+        (DONE_STATUS, "Done")
+    )
+
     number_to_factor = models.BigIntegerField()
     job_date = models.DateField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     algorithm = models.ForeignKey(Algorithm, on_delete=models.CASCADE)
+    state = models.IntegerField(choices=STATUS_CHOICES, default=UNDONE_STATUS)
 
     def __str__(self):
         return str(self.number_to_factor)
+
 
 class Element(models.Model):
     first_factor = models.BigIntegerField()
