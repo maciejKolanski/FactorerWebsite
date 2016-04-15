@@ -12,13 +12,8 @@
             {% ifequal task.state 2 %}
             <p>Została rozłożona na czynniki: </p>
             <ol>
-                {% if elements %}
-                    {% for element in elements %}
-                        {% ifequal element.task task %}
-                            <li>{{element.first_factor}} oraz {{element.second_factor}}</li>
-                        {% endifequal %}                               
-                    {% endfor %}
-                {% endif %}     
+                {% if elements %}{% for element in elements %}{% ifequal element.task task %}<li>{{element.first_factor}} oraz {{element.second_factor}}</li>
+                {% endifequal %}{% endfor %}{% endif %}     
             </ol>       
             {% endifequal %}
         </br></br>  
