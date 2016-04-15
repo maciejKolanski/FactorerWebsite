@@ -8,14 +8,16 @@
     <h2>Moje zadania:</h2>
     {% if tasks %}
         {% for task in tasks %}
-            <p>Liczba <b>{{ task.number_to_factor }}</b> przy użyciu {{ task.algorithm }} dnia {{ task.job_date }} jest w stanie {{ task.state }}</p>
-            {% ifequal task.state 2 %}
-            <p>Została rozłożona na czynniki: </p>
+            <details>
+            <summary><p>Liczba <b>{{ task.number_to_factor }}</b> przy użyciu {{ task.algorithm }} dnia {{ task.job_date }} jest w stanie {{ task.state }}</p></summary>
+            {% ifequal task.state 2 %}            
+            <p>Została rozłożona na czynniki:</br>
             <ol>
                 {% if elements %}{% for element in elements %}{% ifequal element.task task %}<li>{{element.first_factor}} oraz {{element.second_factor}}</li>
                 {% endifequal %}{% endfor %}{% endif %}     
-            </ol>       
+            </ol></p>
             {% endifequal %}
+            </details>
         </br></br>  
         {% endfor %}    
     {% else %}

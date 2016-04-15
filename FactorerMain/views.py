@@ -15,7 +15,7 @@ class IndexView(LoggedInMixin, View):
 
     @staticmethod
     def data_to_render():
-        tasks = Task.objects.order_by('state')
+        tasks = Task.objects.order_by('-id')[:10]
         users = User.objects.order_by('username')
         return {'tasks': tasks, 'users': users}
 
@@ -27,7 +27,7 @@ class UserView(LoggedInMixin, View):
     template_name = 'FactorerMain/userview.html'
 
     def get(self, request, *args, **kwargs):        
-        tasks = Task.objects.filter(user=request.user.id)
+        tasks = Task.objects.filter(user=request.user.id)[::-1]
         elements = Element.objects.filter(task__user=request.user.id)
 
         return render(request, self.template_name, {'tasks': tasks, 'elements': elements})
@@ -47,7 +47,7 @@ class BruteforceView(LoggedInMixin, View):
             algorithm = Algorithm.objects.get(name="Brute Force")#TODO something with hardoced name
             task = Task(number_to_factor=number, user=request.user, algorithm=algorithm)
             task.save()
-            return render(request, IndexView.template_name, IndexView.data_to_render())
+            return HttpResponseRedirect("/")
         return HttpResponse("Failed to get brute force number")
 
 
