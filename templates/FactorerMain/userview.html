@@ -5,42 +5,26 @@
 {% endblock %}
 
 {% block gallery %}
-    <h6>Moje zadania:</h6>
+    <h2>Moje zadania:</h2>
     {% if tasks %}
-        <table style="float: left; width: 0">
-        <tr>
-            <td>Liczba</td>
-            <td>Wątki</td>
-            <td>Algorytm</td>
-            <td>Data</td>
-        </tr>
         {% for task in tasks %}
-            <tr>
-                <td>{{ task.number_to_factor }}</td>
-                <td>{{ task.thread }}</td>
-                <td>{{ task.algorithm }}</td>
-                <td>{{ task.job_date }}</td>
-            </tr>
-        {% endfor %}
-        </table>
+            <p>Liczba <b>{{ task.number_to_factor }}</b> przy użyciu {{ task.algorithm }} dnia {{ task.job_date }} jest w stanie {{ task.state }}</p>
+            {% ifequal task.state 2 %}
+            <p>Została rozłożona na czynniki: </p>
+            <ol>
+                {% if elements %}
+                    {% for element in elements %}
+                        {% ifequal element.task task %}
+                            <li>{{element.first_factor}} oraz {{element.second_factor}}</li>
+                        {% endifequal %}                               
+                    {% endfor %}
+                {% endif %}     
+            </ol>       
+            {% endifequal %}
+        </br></br>  
+        {% endfor %}    
     {% else %}
         <p>No tasks to show.</p>
     {% endif %}
 
-    {% if elements %}
-        <table style="float: left; width: 0">
-        <tr>
-            <td>Pierwszy czynnik</td>
-            <td>Drugi czynnik</td>
-        </tr>
-        {% for element in elements %}
-            <tr>
-                <td>{{ element.first_factor }}</td>
-                <td>{{ element.second_factor }}</td>
-            </tr>
-        {% endfor %}
-        </table>
-    {% else %}
-        <p>No tasks to show.</p>
-    {% endif %}
 {% endblock%}
