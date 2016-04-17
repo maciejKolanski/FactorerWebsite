@@ -1,5 +1,6 @@
 from django.views.generic import View
 from django.shortcuts import render
+from django.template.defaulttags import register
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
@@ -26,11 +27,30 @@ class IndexView(LoggedInMixin, View):
 class UserView(LoggedInMixin, View):
     template_name = 'FactorerMain/userview.html'
 
+    @register.filter
+    def get_item(dictionary, key):
+        return dictionary.get(key)
+
+    # @register.filter
+    # def get_state(task):
+    #     return task.
+
     def get(self, request, *args, **kwargs):        
         tasks = Task.objects.filter(user=request.user.id)[::-1]
         elements = Element.objects.filter(task__user=request.user.id)
 
-        return render(request, self.template_name, {'tasks': tasks, 'elements': elements})
+        elements_dict = {}
+        for element in elements:
+            if element.task not in elements_dict.keys():
+                elements_dict[element.task] = [(element.first_factor, element.second_factor)]
+            else:
+                elements_dict[element.task].append((element.first_factor, element.second_factor))
+
+        for task in tasks:
+            if task not in elements_dict.keys():
+                elements_dict[task] = ""
+
+        return render(request, self.template_name, {'tasks': tasks, 'elements_dict': elements_dict})
 
 
 class BruteforceView(LoggedInMixin, View):
