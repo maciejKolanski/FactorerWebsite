@@ -71,7 +71,8 @@ class BruteforceView(LoggedInMixin, View):
         if algorithm_form.is_valid():
             number = algorithm_form.cleaned_data['number']
             algorithm = Algorithm.objects.get(name="Brute Force")
-            task = Task(number, request.user, algorithm)
+            task = Task(number_to_factor=number, user=request.user,
+                        algorithm=algorithm)
             task.save()
             return HttpResponseRedirect("/")
         return HttpResponse("Failed to get brute force number")
