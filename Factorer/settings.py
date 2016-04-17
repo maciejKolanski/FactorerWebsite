@@ -56,8 +56,7 @@ ROOT_URLCONF = 'Factorer.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -95,9 +94,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'factorDB',
         'USER': 'projekt',
-        'PASSWORD':'projekt',
-        'HOST':'156.17.235.48',
-        'PORT':'3306',
+        'PASSWORD': 'projekt',
+        'HOST': '156.17.235.48',
+        'PORT': '3306',
     }
 }
 
@@ -124,5 +123,4 @@ LOGIN_URL = '/login/'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
-    #os.path.join(BASE_DIR, "static"),
 )

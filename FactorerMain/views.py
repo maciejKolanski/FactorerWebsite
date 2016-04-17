@@ -35,22 +35,26 @@ class UserView(LoggedInMixin, View):
     # def get_state(task):
     #     return task.
 
-    def get(self, request, *args, **kwargs):        
+    def get(self, request, *args, **kwargs):
         tasks = Task.objects.filter(user=request.user.id)[::-1]
         elements = Element.objects.filter(task__user=request.user.id)
 
         elements_dict = {}
         for element in elements:
             if element.task not in elements_dict.keys():
-                elements_dict[element.task] = [(element.first_factor, element.second_factor)]
+                elements_dict[element.task] = [(element.first_factor,
+                                                element.second_factor)]
             else:
-                elements_dict[element.task].append((element.first_factor, element.second_factor))
+                elements_dict[element.task].append((element.first_factor,
+                                                    element.second_factor))
 
         for task in tasks:
             if task not in elements_dict.keys():
                 elements_dict[task] = ""
 
-        return render(request, self.template_name, {'tasks': tasks, 'elements_dict': elements_dict})
+        context = {'tasks': tasks, 'elements_dict': elements_dict}
+
+        return render(request, self.template_name, context)
 
 
 class BruteforceView(LoggedInMixin, View):
@@ -58,14 +62,16 @@ class BruteforceView(LoggedInMixin, View):
 
     def get(self, request, *args, **kwargs):
         algorithm_form = AlgorithmInputForm()
-        return render(request, self.template_name, {'algorithm_form': algorithm_form})
+
+        context = {'algorithm_form': algorithm_form}
+        return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         algorithm_form = AlgorithmInputForm(request.POST)
         if algorithm_form.is_valid():
             number = algorithm_form.cleaned_data['number']
-            algorithm = Algorithm.objects.get(name="Brute Force")#TODO something with hardoced name
-            task = Task(number_to_factor=number, user=request.user, algorithm=algorithm)
+            algorithm = Algorithm.objects.get(name="Brute Force")
+            task = Task(number, request.user, algorithm)
             task.save()
             return HttpResponseRedirect("/")
         return HttpResponse("Failed to get brute force number")
@@ -90,7 +96,8 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             new_user = form.save()
-            authenticated_user = authenticate(username=new_user.username, password=request.POST['password1'])
+            authenticated_user = authenticate(new_user.username,
+                                              request.POST['password1'])
             login(request, authenticated_user)
             return HttpResponseRedirect("/success_register")
     else:

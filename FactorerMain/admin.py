@@ -9,17 +9,21 @@ from .models import Element
 
 admin.site.register(UserData)
 
+
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('number_to_factor', 'thread','job_date','user','algorithm')
+    list_display = ('number_to_factor', 'thread',
+                    'job_date', 'user', 'algorithm')
     search_fields = ['user__username']
-    list_filter = ('algorithm__name','user__username')
+    list_filter = ('algorithm__name', 'user__username')
 
 admin.site.register(Task, TaskAdmin)
+
 
 class AlgorithmAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
 
 admin.site.register(Algorithm, AlgorithmAdmin)
+
 
 class ElementAdmin(admin.ModelAdmin):
     list_display = ('task', 'first_factor', 'second_factor')
