@@ -43,8 +43,8 @@ class Task(models.Model):
 
 
 class Element(models.Model):
-    first_factor = models.BigIntegerField()
-    second_factor = models.BigIntegerField()
+    first_factor = models.CharField(max_length=200)
+    second_factor = models.CharField(max_length=200)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
 
     def __str__(self):
