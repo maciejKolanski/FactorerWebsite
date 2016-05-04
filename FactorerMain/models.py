@@ -23,10 +23,12 @@ class Algorithm(models.Model):
 
 
 class Task(models.Model):
+    CANCELLED_STATUS = -1
     UNDONE_STATUS = 0
     WORKING_STATUS = 1
     DONE_STATUS = 2
     STATUS_CHOICES = (
+        (CANCELLED_STATUS, "Cancelled"),
         (UNDONE_STATUS, "Undone"),
         (WORKING_STATUS, "Working"),
         (DONE_STATUS, "Done")
@@ -35,6 +37,7 @@ class Task(models.Model):
     number_to_factor = models.CharField(max_length=200)
     job_date = models.DateField(default=timezone.now)
     state = models.IntegerField(choices=STATUS_CHOICES, default=UNDONE_STATUS)
+    priority = models.IntegerField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     algorithm = models.ForeignKey(Algorithm, on_delete=models.CASCADE)
 
