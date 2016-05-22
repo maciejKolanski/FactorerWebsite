@@ -38,6 +38,7 @@ class Task(models.Model):
     job_date = models.DateField(default=timezone.now)
     state = models.IntegerField(choices=STATUS_CHOICES, default=UNDONE_STATUS)
     priority = models.IntegerField(default=0)
+    result = models.CharField(max_length=200)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     algorithm = models.ForeignKey(Algorithm, on_delete=models.CASCADE)
 
@@ -45,10 +46,10 @@ class Task(models.Model):
         return str(self.number_to_factor)
 
 
-class Element(models.Model):
-    first_factor = models.CharField(max_length=200)
-    second_factor = models.CharField(max_length=200)
-    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+# class Element(models.Model):
+#     first_factor = models.CharField(max_length=200)
+#     second_factor = models.CharField(max_length=200)
+#     task = models.ForeignKey(Task, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return str(self.task.number_to_factor)
+#     def __str__(self):
+#         return str(self.task.number_to_factor)

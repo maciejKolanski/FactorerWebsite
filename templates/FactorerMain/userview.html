@@ -11,7 +11,19 @@
             <details>
             <summary><p>Liczba <b>{{ task.number_to_factor }}</b> przy użyciu {{ task.algorithm }} dnia {{ task.job_date }} jest w stanie {{ task.state }}</p></summary>
             {% ifequal task.state 2 %}         
-                {% if elements_dict %}
+                {{ task.result }}
+            </p>
+            {% endifequal %}
+            </details>
+        </br></br>  
+        {% endfor %}  
+    {% else %}
+        <p>No tasks to show.</p>
+    {% endif %}
+
+{% endblock%}
+
+<!-- {% if elements_dict %}
                     {% if elements_dict|get_item:task %}
                         <p>Została rozłożona na czynniki:</br>
                         <table>
@@ -29,14 +41,4 @@
                     {% else %}
                     <p>Jest liczbą pierwszą.</p>
                     {% endif %}                
-                {% endif %}
-            </p>
-            {% endifequal %}
-            </details>
-        </br></br>  
-        {% endfor %}  
-    {% else %}
-        <p>No tasks to show.</p>
-    {% endif %}
-
-{% endblock%}
+                {% endif %} -->

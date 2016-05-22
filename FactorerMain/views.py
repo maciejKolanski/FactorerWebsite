@@ -27,9 +27,9 @@ class IndexView(LoggedInMixin, View):
 class UserView(LoggedInMixin, View):
     template_name = 'FactorerMain/userview.html'
 
-    @register.filter
-    def get_item(dictionary, key):
-        return dictionary.get(key)
+    # @register.filter
+    # def get_item(dictionary, key):
+    #     return dictionary.get(key)
 
     # @register.filter
     # def get_state(task):
@@ -37,22 +37,22 @@ class UserView(LoggedInMixin, View):
 
     def get(self, request, *args, **kwargs):
         tasks = Task.objects.filter(user=request.user.id)[::-1]
-        elements = Element.objects.filter(task__user=request.user.id)
+        # elements = Element.objects.filter(task__user=request.user.id)
 
-        elements_dict = {}
-        for element in elements:
-            if element.task not in elements_dict.keys():
-                elements_dict[element.task] = [(element.first_factor,
-                                                element.second_factor)]
-            else:
-                elements_dict[element.task].append((element.first_factor,
-                                                    element.second_factor))
+        # elements_dict = {}
+        # for element in elements:
+        #     if element.task not in elements_dict.keys():
+        #         elements_dict[element.task] = [(element.first_factor,
+        #                                         element.second_factor)]
+        #     else:
+        #         elements_dict[element.task].append((element.first_factor,
+        #                                             element.second_factor))
 
-        for task in tasks:
-            if task not in elements_dict.keys():
-                elements_dict[task] = ""
+        # for task in tasks:
+        #     if task not in elements_dict.keys():
+        #         elements_dict[task] = ""
 
-        context = {'tasks': tasks, 'elements_dict': elements_dict}
+        context = {'tasks': tasks}
 
         return render(request, self.template_name, context)
 
