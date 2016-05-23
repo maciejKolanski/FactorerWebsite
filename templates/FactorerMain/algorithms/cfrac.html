@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{%  block description %}
+    <h1>CFRAC</h1>
+{% endblock %}
+
+{% block gallery %}
+    <div clas="info">
+    <form method="post" action="{% url 'cfrac' %}">
+        {% csrf_token %}
+        {{ algorithm_form }}
+        <input type="submit" value="Submit" />
+    </form>
+    </div>
+{% endblock %}
