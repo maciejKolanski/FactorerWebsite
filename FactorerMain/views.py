@@ -78,6 +78,27 @@ class BruteforceView(LoggedInMixin, View):
         return HttpResponse("Failed to get brute force number")
 
 
+class CFRACView(LoggedInMixin, View):
+    template_name = 'FactorerMain/algorithms/cfrac.html'
+
+    def get(self, request, *args, **kwargs):
+        algorithm_form = AlgorithmInputForm()
+
+        context = {'algorithm_form': algorithm_form}
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        algorithm_form = AlgorithmInputForm(request.POST)
+        if algorithm_form.is_valid():
+            number = algorithm_form.cleaned_data['number']
+            algorithm = Algorithm.objects.get(name="CFRAC")
+            task = Task(number_to_factor=number, user=request.user,
+                        algorithm=algorithm)
+            task.save()
+            return HttpResponseRedirect("/")
+        return HttpResponse("Failed to get brute force number")
+
+
 class AboutView(LoggedInMixin, View):
     template_name = 'FactorerMain/about.html'
 

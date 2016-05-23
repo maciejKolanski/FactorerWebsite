@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^about/?$', views.AboutView.as_view(), name='about'),
     url(r'^creators/?$', views.CreatorsView.as_view(), name='creators'),
     url(r'^bruteforce/?$', views.BruteforceView.as_view(), name='bruteforce'),
+    url(r'^cfrac/?$', views.CFRACView.as_view(), name='cfrac'),
     url(r'^login/?$', 'django.contrib.auth.views.login'),
     url(r'^logout/?$', 'django.contrib.auth.views.logout'),
     url(r'^register/?$', views.register, name='register'),
