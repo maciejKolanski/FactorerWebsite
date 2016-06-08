@@ -115,3 +115,96 @@ http://home.earthlink.net/~elevensmooth/
 - - - - - -
 Factorizations of Cyclotomic Numbers
 http://www.asahi-net.or.jp/~KC2H-MSM/cn/
+
+- - - - - - - - - - - - - - - -
+X. Algorytm CFRAC
+
+X.1 Opis algorytmu
+
+	Metoda CFRAC  jest algorytmem faktoryzacji liczb całkowitych. Jest to uniwersalny algorytm będący w stanie rozłożyć na czynniki każdą liczbę, nie polegając na żadnych ograniczeniach czy warunkach. Został on opisany przez D.H. Lehmer'a oraz R. E. Powers'a w 1931 roku, oraz wdrożony na komputery pierwszy raz przez Michael'a A. Morisson'a oraz John'a Brillhart'a w 1975 roku.
+
+Algorytm ten bazuje na metodzie faktoryzacji Diaxona. Metoda Diaxona polegała na losowaniu kolejnych liczb 'a' takie, że:
+
+sqrt[n] < a < n (gdzie n to liczba, którą chcemy sfaktoryzować)
+
+i sprawdzamy(używając algorytmu naiwnego), czy b^2 = a^2mod(n) jest liczbą B-gładką, dla ustalonego B. Jeżeli tak to dodajemy znalezioną parę do zbioru.
+
+(Liczba B-gładka to taka liczba, której wszystkie dzielniki pierwsze są mniejsze bądź równe dla ustalonego B)
+
+
+W algorytmie CFRAC idea pozostaje bez zmian, definiowany jest natomiast sposób wybierania par. Zamiast losowania ich wykorzystywany jest ciąg rozwinięcia sqrt(n) w ułamek łańcuchowy.
+
+Złożoność obliczeniowa algorytmu CFRAC jest rzędu O(e^sqrt(2* logn * loglog n)) <- na wikipedi lepiej przedstawiony wzor
+
+X.2.1 Implementacja:
+
+Algorytm został zaimplementowany w następujący sposób:
+
+Program generuję rekurencyjnie elementy tablicy, której elementy są ze sobą ściśle powiązane, następującymi wzorami:
+
+Q[n] = Q[n-2] + q[n-1] * (r[n-1] - r[n-2])
+G[n] = 2*g - r[n-1]
+q[n] = G[n]/Q[n]
+r[n] = G[n] - q[n]*Q[n]
+A[n] = q[n]*A[n-1] + A[n-2]modN
+
+gdzie
+
+Q[-1]= N
+Q[0] = 1
+q[0] = g
+r[-1]= g
+r[0] = 0
+A[-1]= 1
+A[0] = g
+g = sqrt(N)
+
+Dla powyższych reguł generowane są rekurencyjnie kolejne rekordy. Przy wygenerowaniu każdego kolejnego "zestawu" wyników badany był element Q[i]. Jeżeli był on możliwy do spierwiastkowania(reszta z pierwiastka kwadratowego jego wartości była równa zeru), to następnym krokiem w celu uzyskania szukanego faktora było obliczenie następującej wartości:
+
+temp = A[i-1] - sqrt(Q[i])
+
+Ostatnim krokiem było obliczenie NWD (największego wspólnego dzielnika)pomiędzy uzyskaną wartością (temp), a liczbą dla której szukamy faktora(N). Wykorzystanym algorytmem do obliczania NWD był algorytm euklidesa, który jest aktualnie najefektywniejszym algorytmem wykorzystywanym do tej operacji.
+
+X.2.2 Podział zadań (Master Slave)
+
+Z powodu rekurencyjnego generowania wyników, efektywny podział pracy pomiędzy różne maszyny(slave'y) był bardzo ciężki do zrealizowania. Ostatecznie udało nam się wymyślić sposób podziału prac, który może nie jest najlepszy ale zapewnia w pewnym stopniu poprawe wydajności przy wykorzystaniu wielu maszyn.
+
+Polega on na wprowadzeniu do algorytmu parametru K. Dla każdej maszyny oprócz danej liczby do faktoryzacji wysyłamy również indywidualny dla niej parametr, przez który mnoży on otrzymaną liczbę do faktoryzacji. Dla nowej uzyskanej liczby k*N, algorytm znajduję wyniki w innym czasie. Wadą tego rozwiązania jest nie zawsze poprawny wynik, dlatego po jego odebraniu trzeba sprawdzić jego poprawność (np odrzucić wyniki, które dzielą się przez k)
+
+Należy też wspomnieć, że CFRAC jest efektywnym algorytmem tylko dla dużych liczb, dlatego w celu znacznego skrócenia czasu operacji mniejsze liczby faktoryzowane są prostym algorytmem naiwnym przez maszyne Master.
+
+Algorytm podziału zadań przez maszyna Master wygląda w następujący sposób:
+
+1. Utwórz kolejke na wynik
+2. Wrzuć pierwszą liczbę (N) do kolejki liczb do faktoryzacji
+3. Dopóki kolejka nie jest pusta
+3.1 Dopóki nie znalazłes ostatniej liczby pierwszej
+3.1.1 Wyciągnij liczbę A z kolejki
+3.1.2 Jeżeli A jest liczbą dużą (efektywny CFRAC)
+3.1.2.1 Zainicjuj maszyny (Slave'y)
+3.1.2.2 Roześlij zadania wraz z indywidualnym parametrem K
+3.1.2.3 Wyrzuć aktualną liczbę A z kolejki
+3.1.2.4 Wykonuj dopóki nie odbierzesz wyników od wszystkich maszyn
+3.1.2.4.1 Czekaj na wynik
+3.1.2.4.2 Sprawdź jego poprawność
+3.1.2.4.3 Jeżeli wynik jest poprawny:
+3.1.2.4.3.1 Jeżeli jest liczbą pierwszą, wrzuć do kolejki wyników
+3.1.2.4.3.2 Jeżeli nie jest liczbą pierwszą wrzuć go oraz jego iloraz z liczbą A do kolejki liczb do faktoryzacji
+3.1.2.4.4 Jeżeli żadna maszyna nie zwróciła poprawnego wyniku, zmień parametr k i wrzuć z powrotem liczbę A do kolejki liczb do faktoryzacji
+3.1.2.2 Dla małej liczby użyj algorytmu naiwnego (bruteforce)
+
+
+
+
+zrodla : 
+
+wikipedia
+
+praca inz 
+http://ki.agh.edu.pl/sites/default/files/usefiles/172/theses/mateusz.niezabitowski.algorytmy.faktoryzacji.w.zastosowaniach.kryptograficznych.v1.0-final.pdf
+
+implementacja
+https://math.dartmouth.edu/~carlp/PDF/implementation.pdf
+
+
+
